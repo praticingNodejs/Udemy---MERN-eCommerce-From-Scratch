@@ -1,7 +1,11 @@
+import './env.js'
+
 import express from 'express'
 import products from './src/data/products.js'
 
 const app = express()
+
+app.set('port', process.env.PORT || 5000)
 
 app.get('/api', (req, res) => {
     res.send('Hello Mtfk...')
@@ -16,6 +20,7 @@ app.get('/api/products/:id', (req, res) => {
     res.json(product)
 })
 
-app.listen(5000, () => {
-    console.log('Server running at port 5000')
+
+app.listen(app.get('port'), () => {
+    console.log(`Server running in ${process.env.NODE_ENV} on port ${app.get('port')}`)
 })
