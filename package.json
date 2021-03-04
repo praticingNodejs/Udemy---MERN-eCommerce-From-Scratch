@@ -5,12 +5,14 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "node backend/server",
-    "server:dev": "cross-env NODE_ENV=development nodemon backend/server",
-    "server:prod": "cross-env NODE_ENV=production nodemon backend/server",
+    "start": "node backend/",
+    "server:dev": "cross-env NODE_ENV=development nodemon backend/",
+    "server:prod": "cross-env NODE_ENV=production nodemon backend/",
     "client": "npm start --prefix frontend",
     "dev": "concurrently \"npm run server:dev\" \"npm run client\"",
-    "prod": "concurrently \"npm run server:production\" \"npm run client\"",
+    "prod": "concurrently \"npm run server:prod\" \"npm run client\"",
+    "data:import:dev": "cross-env NODE_ENV=development node backend/seeder",
+    "data:destroy:dev": "cross-env NODE_ENV=development node backend/seeder -d",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -25,9 +27,12 @@
   },
   "homepage": "https://github.com/praticingNodejs/Udemy---MERN-eCommerce-From-Scratch#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "chalk": "^4.1.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "global": "^4.4.0"
+    "global": "^4.4.0",
+    "mongoose": "^5.11.18"
   },
   "devDependencies": {
     "concurrently": "^6.0.0",
