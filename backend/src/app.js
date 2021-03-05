@@ -1,4 +1,5 @@
 import './env.js';
+import './utils/logger.js';
 import './mongoose.js';
 
 import express from 'express';

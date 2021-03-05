@@ -3,7 +3,7 @@ import './src/mongoose.js';
 
 import chalk from 'chalk';
 
-import { info, success, fail } from './src/utils/log-message.js';
+import { logger } from './src/utils/logger.js';
 
 import { User } from './src/models/user.model.js';
 import { Product } from './src/models/product.model.js';
@@ -24,15 +24,15 @@ const importData = async () => {
 
         // get admin id
         const adminUser = createdUser.find(({ isAdmin }) => isAdmin)._id;
-        console.log(info(`AdminId: ${adminUser}`));
+        logger.info(`AdminId: ${adminUser}`);
 
         const sampleProducts = products.map(product => ({ ...product, user: adminUser }))
         await Product.create(sampleProducts);
 
-        console.log(success('Data imported'));
+        logger.success('Data imported');
         process.exit()
     } catch (err) {
-        console.error(fail(err));
+        logger.fail(err);
         process.exit(1);
     }
 };
@@ -44,10 +44,10 @@ const destroyData = async () => {
         await Order.deleteMany();
         await Product.deleteMany();
 
-        console.log(success('Data destroyed', 'redBright'));
+        logger.success('Data destroyed', 'redBright');
         process.exit();
     } catch (err) {
-        console.error(fail(err));
+        logger.fail(err);
         process.exit(1);
     }
 };

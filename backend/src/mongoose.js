@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
-
-import { success, fail } from './utils/log-message.js';
+import { logger } from './utils/logger.js';
 
 mongoose.connect(process.env.MONGODB_URI, {
     useFindAndModify: false,
@@ -10,13 +9,11 @@ mongoose.connect(process.env.MONGODB_URI, {
 });
 
 mongoose.connection.on('connected', () => {
-    const message = success('MongoDb connected');
-    console.log(message);
+    logger.success('MongoDb connected');
 });
 
 mongoose.connection.on('error', error => {
     console.error(error);
-    const message = fail('MongoDb error');
-    console.log(message);
+    logger.fail('MongoDb error');
     process.exit();
 })
