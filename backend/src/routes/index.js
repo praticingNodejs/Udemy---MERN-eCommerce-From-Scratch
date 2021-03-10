@@ -1,5 +1,6 @@
 import express from 'express';
-import * as product from '../controllers/product/product.handler.js';
+import productRoute from './product.route.js';
+import userRoute from './user.route.js';
 
 const router = express.Router();
 
@@ -9,13 +10,9 @@ export default (app) => {
 
     router.get('/', (req, res) => res.send('Hello Mtfk...'));
 
-    // @desc Fetch all products
-    // @route GET /api/products
-    // @access Public
-    router.get('/products', product.list);
+    // product routing
+    productRoute(router);
 
-    router.get('/products/:id', (req, res) => {
-        // const product = products.find(({ _id }) => _id === req.params.id);
-        // res.json(product);
-    });
+    // user routing
+    userRoute(router);
 }
