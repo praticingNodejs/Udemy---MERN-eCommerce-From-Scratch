@@ -1,7 +1,7 @@
 import { Product } from '../../models/product.model.js';
 import { logger } from '../../utils/logger.js';
 
-export const listProduct = async (filter = {}) => {
+export const get = async (filter = {}) => {
     const response = {
         status: 200,
         data: {}

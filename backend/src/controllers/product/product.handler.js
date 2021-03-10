@@ -1,13 +1,15 @@
-import * as product from './product.process.js';
+import {
+    get as getProduct
+} from './product.process.js';
 
 export const list = async (req, res) => {
-    const { status, data } = await product.listProduct();
+    const { status, data } = await getProduct();
 
     return res.status(status).send(data);
 };
 
 export const detail = async (req, res) => {
-    const { status, data } = await product.listProduct({ _id: req.params.id });
+    const { status, data } = await getProduct({ _id: req.params.id });
 
     // if search by _id, require existed record
     // if not, throw Error
