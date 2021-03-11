@@ -5,12 +5,14 @@ import './mongoose.js';
 // import libs
 import express from 'express';
 import morgan from 'morgan';
-
 import middlewares from './middlewares/index.js';
 
 import router from './routes/index.js';
 
 const app = express();
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(morgan('dev'));
 
 // set router
