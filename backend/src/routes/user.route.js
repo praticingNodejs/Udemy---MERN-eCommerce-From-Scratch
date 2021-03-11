@@ -8,5 +8,8 @@ export default (prefix) => {
     // prefix path for users
     prefix.use('/users', authentication.verifyToken, router);
 
+    // @desc Fetch user profile
+    // @route GET /users/profile
+    // @access Bearer Authentication
     router.get('/profile', user.getProfile)
 }

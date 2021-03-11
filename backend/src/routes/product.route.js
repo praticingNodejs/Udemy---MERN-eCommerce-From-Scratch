@@ -12,5 +12,8 @@ export default (prefix) => {
     // @access Public
     router.get('/', product.list);
 
+    // @desc Fetch single product
+    // @route GET /api/products/:id
+    // @access Public
     router.get('/:id', product.detail);
 }
