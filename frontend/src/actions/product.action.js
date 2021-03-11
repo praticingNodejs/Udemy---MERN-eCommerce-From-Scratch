@@ -15,8 +15,10 @@ export const listProducts = () => async (dispatch) => {
         // state in reducer will be updated dynamically based on action call
         dispatch({ type: PRODUCT_LIST_REQUEST });
 
+        // after proceed the action from reducer -> fetch API using axios
         const { data } = await axios.get('/api/products');
 
+        // then update the data to the payload using action PRODUCT_LIST_SUCCESS
         dispatch({
             type: PRODUCT_LIST_SUCCESS,
             payload: data,
