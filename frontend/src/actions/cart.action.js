@@ -14,14 +14,14 @@ export const addToCart = (id, qty) => async (dispatch, getState) => {
             price: data.price,
             countInStock: data.countInStock,
             qty: parseInt(qty, 10)
-        }
-    })
+        },
+    });
 
     // 2. then it will set the item after proceed in reducer to local storage
     // getState() will get entire state from local storage
     // get the cartItems after set from previous action then
-    localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
-}
+    localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
+};
 
 export const removeFromCart = (id) => (dispatch, getState) => {
     // 1. call action remove item in reducer
@@ -29,10 +29,10 @@ export const removeFromCart = (id) => (dispatch, getState) => {
         type: CART_REMOVE_ITEM,
         payload: {
             productId: id
-        }
-    })
+        },
+    });
 
     // now it has been removed by filter
     // 2. set the state after filter to the localStorage
-    localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
-}
+    localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
+};
