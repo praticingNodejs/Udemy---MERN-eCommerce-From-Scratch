@@ -1,4 +1,5 @@
 import { User } from '../../models/user.model.js';
+import { accessToken } from '../../utils/token.js';
 
 export const get = async (filter = {}) => {
     const response = {
@@ -12,7 +13,7 @@ export const get = async (filter = {}) => {
         response.data = user;
     } catch (error) {
         response.statusCode = 500;
-        response.message = 'Get user successful';
+        response.message = error.message;
     }
 
     return response;
@@ -21,7 +22,7 @@ export const get = async (filter = {}) => {
 export const createNewUser = async (data) => {
     const response = {
         statusCode: 200,
-        message: 'Get user successful',
+        message: 'Register new user successful',
         data: {},
     };
 
@@ -37,17 +38,20 @@ export const createNewUser = async (data) => {
                 data: {},
             };
         }
-
+        console.log(data)
         const newUser = await User.create({
             name: data.name,
             email: data.email,
             password: data.password,
         })
 
-        response.data = newUser;
+        response.data = {
+            accessToken: accessToken(newUser._id),
+            user: newUser,
+        };
     } catch (error) {
         response.statusCode = 500;
-        response.message = 'Get user successful';
+        response.message = error.message;
     }
 
     return response;
