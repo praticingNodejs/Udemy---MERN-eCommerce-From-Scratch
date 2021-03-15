@@ -1,27 +1,9 @@
 import { User } from '../../models/user.model.js';
 import { accessToken } from '../../utils/token.js';
 
-export const get = async (filter = {}) => {
-    const response = {
-        statusCode: 200,
-        message: 'Get user successful',
-        data: {},
-    };
-
-    try {
-        const user = await User.find(filter).select('-password');
-        response.data = user;
-    } catch (error) {
-        response.statusCode = 500;
-        response.message = error.message;
-    }
-
-    return response;
-};
-
 export const createNewUser = async (data) => {
     const response = {
-        statusCode: 200,
+        statusCode: 201,
         message: 'Register new user successful',
         data: {},
     };
@@ -38,7 +20,7 @@ export const createNewUser = async (data) => {
                 data: {},
             };
         }
-        console.log(data)
+
         const newUser = await User.create({
             name: data.name,
             email: data.email,
@@ -49,6 +31,45 @@ export const createNewUser = async (data) => {
             accessToken: accessToken(newUser._id),
             user: newUser,
         };
+    } catch (error) {
+        response.statusCode = 500;
+        response.message = error.message;
+    }
+
+    return response;
+};
+
+export const updateUser = async ({ _id, data }) => {
+    const response = {
+        statusCode: 200,
+        message: 'Update user successful',
+        data: {},
+    };
+
+    try {
+        if (data.email) {
+            const user = await User.findOne({ email: data.email });
+            if (user) {
+                return {
+                    statusCode: 400,
+                    message: 'Email existed',
+                    data: {},
+                };
+            }
+        }
+
+
+
+        const updatedUser = await User.findOneAndUpdate({ _id }, data, { new: true });
+        if (!updatedUser) {
+            return {
+                statusCode: 404,
+                message: 'User not existed',
+                data: {},
+            };
+        }
+
+        response.data = updatedUser;
     } catch (error) {
         response.statusCode = 500;
         response.message = error.message;

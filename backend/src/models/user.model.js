@@ -12,13 +12,17 @@ UserSchema.methods.comparePassword = function (userPassword) {
     return bcrypt.compareSync(userPassword, this.password)
 };
 
-UserSchema.pre('save', async function (next) {
-    if (this.isModified('password')) {
-        const salt = await bcrypt.genSalt(10);
-        this.password = bcrypt.hashSync(this.password, salt)
-    }
+UserSchema.pre('save', async function save(next) {
+    try {
+        if (this.isModified('password')) {
+            const salt = await bcrypt.genSalt(10);
+            this.password = bcrypt.hashSync(this.password, salt)
+        }
 
-    return next()
+        return next()
+    } catch (err) {
+        return next(err)
+    }
 });
 
 export const User = mongoose.model('users', UserSchema);

@@ -11,5 +11,10 @@ export default (prefix) => {
     // @desc Fetch user profile
     // @route GET /users/profile
     // @access Bearer Authentication
-    router.get('/profile', user.getProfile)
+    router.get('/profile', user.getProfile);
+
+    // @desc Update user profile
+    // @route PUT /users/profile
+    // @access Bearer Authentication
+    router.put('/profile/:id', user.updateProfile);
 }
