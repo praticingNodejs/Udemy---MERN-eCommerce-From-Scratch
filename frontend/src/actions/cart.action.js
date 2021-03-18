@@ -41,9 +41,7 @@ export const saveShippingAddress = (data) => (dispatch, getState) => {
     // 1. call action remove item in reducer
     dispatch({
         type: CART_SAVE_SHIPPING_ADDRESS,
-        payload: {
-            productId: data
-        },
+        payload: data,
     });
 
     localStorage.setItem('shippingAddress', JSON.stringify(data))
