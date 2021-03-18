@@ -3,6 +3,7 @@ import * as authentication from '../controllers/authentication/authentication.ha
 import * as user from '../controllers/users/user.handler.js';
 import productRoute from './product.route.js';
 import userRoute from './user.route.js';
+import orderRoute from './order.route.js';
 
 const router = express.Router();
 
@@ -27,4 +28,7 @@ export default (app) => {
 
     // user routing
     userRoute(router);
+
+    // order routing
+    orderRoute(router);
 }
