@@ -6,6 +6,7 @@ import Message from '../components/Message';
 import CheckoutStep from '../components/CheckoutStep';
 import { Link } from 'react-router-dom';
 import { createOrder } from '../actions/order.action';
+import { addDecimals } from '../utils/number';
 
 const PlaceOrderScreen = ({ history }) => {
     const dispatch = useDispatch();
@@ -20,9 +21,6 @@ const PlaceOrderScreen = ({ history }) => {
         paymentMethod,
         cartItems,
     } = useSelector(({ cart }) => cart);
-
-    // add 2 number after comma
-    const addDecimals = (num) => (Math.round(num * 100) / 100).toFixed(2);
 
     const itemsPrice = addDecimals(cartItems.reduce((acc, item) => acc + item.price * item.qty, 0));
     const shippingPrice = addDecimals(itemsPrice > 100 ? 0 : 100); // free ship if budget > 100

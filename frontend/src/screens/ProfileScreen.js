@@ -8,7 +8,7 @@ import { getUserDetail, updateUserProfile } from '../actions/user.action';
 const ProfileScreen = ({ history }) => {
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
-    const [message, setMessage] = useState();
+    const [message] = useState();
 
     const dispatch = useDispatch();
 
