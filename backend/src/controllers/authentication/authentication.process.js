@@ -1,5 +1,6 @@
 import { User } from '../../models/user.model.js';
 import { accessToken } from '../../utils/token.js';
+import { logger } from '../../utils/logger.js';
 
 export const checkUserLogin = async ({ email, password }) => {
     const response = {
@@ -29,6 +30,8 @@ export const checkUserLogin = async ({ email, password }) => {
             }
         };
     } catch (error) {
+        logger.fail(error.message);
+
         response.statusCode = 500
         response.message = error
     }

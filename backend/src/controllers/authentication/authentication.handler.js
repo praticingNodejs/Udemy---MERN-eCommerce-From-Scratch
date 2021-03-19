@@ -1,6 +1,6 @@
 import { checkUserLogin } from './authentication.process.js';
 import jwt from 'jsonwebtoken';
-
+import { logger } from '../../utils/logger.js';
 import { User } from '../../models/user.model.js';
 
 export const verifyToken = async (req, res, next) => {
@@ -21,6 +21,8 @@ export const verifyToken = async (req, res, next) => {
 
         return res.status(401).send({ statusCode: 401, message: 'Unauthorized', data: {} });
     } catch (error) {
+        logger.fail(error.message);
+
         return res.status(401).send({ statusCode: 401, message: 'Unauthorized', data: error });
     }
 };

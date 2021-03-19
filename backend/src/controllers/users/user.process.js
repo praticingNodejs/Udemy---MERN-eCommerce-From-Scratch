@@ -1,5 +1,6 @@
 import { User } from '../../models/user.model.js';
 import { accessToken } from '../../utils/token.js';
+import { logger } from '../../utils/logger.js';
 
 export const createNewUser = async (data) => {
     const response = {
@@ -32,6 +33,8 @@ export const createNewUser = async (data) => {
             user: newUser,
         };
     } catch (error) {
+        logger.fail(error.message);
+
         response.statusCode = 500;
         response.message = error.message;
     }
@@ -71,6 +74,8 @@ export const updateUser = async ({ _id, data }) => {
 
         response.data = updatedUser;
     } catch (error) {
+        logger.fail(error.message);
+
         response.statusCode = 500;
         response.message = error.message;
     }
