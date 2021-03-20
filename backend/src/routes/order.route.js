@@ -8,6 +8,11 @@ export default (prefix) => {
     // prefix path for users
     prefix.use('/order', authentication.verifyToken, router);
 
+    // @desc Get list order
+    // @route GET /order/
+    // @access Bearer Authentication
+    router.get('/', order.getListOrder);
+
     // @desc Get order detail
     // @route GET /order/:id
     // @access Bearer Authentication

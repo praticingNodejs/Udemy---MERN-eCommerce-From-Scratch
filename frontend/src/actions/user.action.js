@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { CART_RESET_ITEM } from '../constants/cart.constant';
+import { ORDER_MY_LIST_RESET } from '../constants/order.constant';
 import {
     // user authentication
     USER_LOGIN_REQUEST,
@@ -20,6 +22,7 @@ import {
     USER_DETAIL_REQUEST,
     USER_DETAIL_SUCCESS,
     USER_DETAIL_FAIL,
+    USER_DETAIL_RESET,
 } from '../constants/user.constant';
 
 export const login = ({ email, password }) => async (dispatch) => {
@@ -59,7 +62,13 @@ export const login = ({ email, password }) => async (dispatch) => {
 export const logout = () => (dispatch) => {
     localStorage.removeItem('userInfo');
     localStorage.removeItem('jwt');
+    localStorage.removeItem('cartItems');
+    localStorage.removeItem('shippingAddress');
+    localStorage.removeItem('paymentMethod');
 
+    dispatch({ type: CART_RESET_ITEM });
+    dispatch({ type: USER_DETAIL_RESET });
+    dispatch({ type: ORDER_MY_LIST_RESET });
     dispatch({ type: USER_LOGOUT });
 };
 

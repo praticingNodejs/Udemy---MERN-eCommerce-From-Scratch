@@ -8,6 +8,9 @@ import {
     ORDER_PAY_REQUEST,
     ORDER_PAY_SUCCESS,
     ORDER_PAY_FAIL,
+    ORDER_MY_LIST_REQUEST,
+    ORDER_MY_LIST_SUCCESS,
+    ORDER_MY_LIST_FAIL,
 } from '../constants/order.constant';
 import axios from 'axios';
 
@@ -86,6 +89,34 @@ export const payOrder = (orderId, paymentResult) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: ORDER_PAY_FAIL,
+            payload: error.response?.data?.message || error.message,
+        });
+    }
+};
+
+export const listMyOrders = () => async (dispatch, getState) => {
+    try {
+        const token = localStorage.getItem('jwt');
+        const { userLogin: { userInfo } } = getState();
+        console.log(userInfo)
+        dispatch({ type: ORDER_MY_LIST_REQUEST });
+        const config = {
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+        };
+
+        // first layer data is from axios
+        const { data: { data } } = await axios.get(`/api/order?user=${userInfo._id}`, config);
+
+        dispatch({
+            type: ORDER_MY_LIST_SUCCESS,
+            payload: data,
+        });
+    } catch (error) {
+        dispatch({
+            type: ORDER_MY_LIST_FAIL,
             payload: error.response?.data?.message || error.message,
         });
     }

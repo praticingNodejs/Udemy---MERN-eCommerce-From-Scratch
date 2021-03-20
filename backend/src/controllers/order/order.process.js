@@ -30,6 +30,27 @@ export const getOrderById = async (id) => {
     return response;
 };
 
+export const getListOrderFilter = async (filter = {}) => {
+    const response = {
+        statusCode: 200,
+        message: 'Create order successful',
+        data: {},
+    };
+
+    try {
+        const order = await Order.find(filter)
+            .populate({ path: 'user', select: 'name email' });
+
+        response.data = order;
+    } catch (error) {
+        logger.fail(error.message)
+        response.statusCode = 500;
+        response.message = error.message;
+    }
+
+    return response;
+};
+
 export const createOrder = async (user, data) => {
     const response = {
         statusCode: 200,
