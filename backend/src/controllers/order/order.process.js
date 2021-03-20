@@ -68,3 +68,30 @@ export const createOrder = async (user, data) => {
 
     return response;
 };
+
+export const updateOrder = async (orderId, data) => {
+    const response = {
+        statusCode: 200,
+        message: 'Create order successful',
+        data: {},
+    };
+
+    try {
+        const order = await Order.findOneAndUpdate({ _id: orderId }, data, { new: true });
+        if (!order) {
+            return {
+                statusCode: 404,
+                message: 'Order not found',
+                data: {},
+            };
+        }
+
+        response.data = order;
+    } catch (error) {
+        logger.fail(error.message)
+        response.statusCode = 500;
+        response.message = error.message;
+    }
+
+    return response;
+};

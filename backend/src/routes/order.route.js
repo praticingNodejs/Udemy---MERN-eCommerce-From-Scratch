@@ -17,4 +17,9 @@ export default (prefix) => {
     // @route POST /order
     // @access Bearer Authentication
     router.post('/', order.addOrderItems);
+
+    // @desc Update an order to paid
+    // @route PUT /order/:id/pay
+    // @access Bearer Authentication
+    router.put('/:id/pay', order.updateOrderToPay);
 }

@@ -6,7 +6,8 @@ import Message from '../components/Message';
 import CheckoutStep from '../components/CheckoutStep';
 import { Link } from 'react-router-dom';
 import { createOrder } from '../actions/order.action';
-import { addDecimals } from '../utils/number';
+import { addDecimals } from '../utils';
+import { ORDER_CREATE_RESET } from '../constants/order.constant';
 
 const PlaceOrderScreen = ({ history }) => {
     const dispatch = useDispatch();
@@ -31,9 +32,12 @@ const PlaceOrderScreen = ({ history }) => {
     const { loading, order, success, error } = useSelector(({ orderCreate }) => orderCreate);
     useEffect(() => {
         if (success) {
-            history.push(`/order/${order._id}`)
+            history.push(`/order/${order._id}`);
+            // after get the order from redux, immediately set the order in store to empty to get new order
+            // else it will redirect to the old order
+            dispatch({ type: ORDER_CREATE_RESET });
         }
-    }, [history, order, success])
+    }, [dispatch, history, order, success]);
     const processOrderHandler = () => {
         dispatch(createOrder({
             orderItems: cartItems,

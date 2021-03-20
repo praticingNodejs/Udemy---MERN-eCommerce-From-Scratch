@@ -17,9 +17,10 @@ const OrderSchema = new mongoose.Schema({
     },
     paymentMethod: { type: String, required: true },
     paymentResult: {
+        id: String,
         status: String,
-        email: String,
-        updatedAt: { type: Date, default: Date.now() }
+        email_address: String,
+        update_time: String,
     },
     taxPrice: { type: Number, required: true, default: 0.0 },
     shippingPrice: { type: Number, required: true, default: 0.0 },

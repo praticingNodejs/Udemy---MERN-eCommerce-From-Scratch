@@ -11,7 +11,8 @@ export default (app) => {
     // prefix path
     app.use('/api', router);
 
-    router.get('/', (req, res) => res.send('Hello Mtfk...'));
+    router.get('/', (req, res) => res.send('Welcome to proshop...'));
+    router.get('/config/paypal', (req, res) => res.send(process.env.PAYPAL_CLIENT_ID));
 
     // @desc Login
     // @route POST /login
